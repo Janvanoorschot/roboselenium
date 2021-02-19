@@ -9,5 +9,7 @@ downloads/
 wheels/
 venv/
 
+drivers
+
 .idea
 *.iml
