@@ -33,14 +33,14 @@ class element_has_css_class(object):
 
 op = webdriver.ChromeOptions()
 # remove the next line if you want to see what is happening
-op.add_argument('headless')
+# op.add_argument('headless')
 browser = webdriver.Chrome(executable_path=os.path.join(rootdir, "./drivers/chromedriver"), options=op)
 
 
 browser.get("http://localhost:8080/login/auth")
 # page should be ready, click on the login
-browser.find_element_by_id("username").send_keys("xxxx")
-browser.find_element_by_id("password").send_keys("yyyy")
+browser.find_element_by_id("username").send_keys("team27/jan@janvanoorschot.nl")
+browser.find_element_by_id("password").send_keys("h622p")
 browser.find_element_by_id("submit").click()
 
 # wait for the target page (and we do not know which, but probably the profile page)
@@ -60,7 +60,7 @@ sleep(1)
 runButton = browser.find_element_by_name('idButtonA')
 browser.execute_script("arguments[0].click();", runButton)
 
-# wat for the script to run
+# wait for the script to run
 try:
     WebDriverWait(browser, 10).until(element_has_css_class((By.ID, 'myrobomindide'), "RunModeRunning"))
 except TimeoutException:
