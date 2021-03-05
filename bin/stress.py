@@ -32,12 +32,12 @@ if __name__ == "__main__":
     debug = args.d
 
     try:
-        executor = ThreadPoolExecutor(10)
+        executor = ThreadPoolExecutor(20)
         loop = asyncio.get_event_loop()
-        urls = ["http://localhost:8080"] * 8
+        urls = ["http://localhost:8080"] * 20
         for ix in range(len(urls)):
             url = urls[ix]
-            loop.run_in_executor(executor, work, ix, url, 50)
+            loop.run_in_executor(executor, work, ix, url, 50000)
         loop.run_until_complete(asyncio.gather(*asyncio.all_tasks(loop)))
     except Exception as e:
         print(f"fatal error: {e}")
