@@ -1,1 +1,1 @@
-from robo_user import RoboUser
+from .robo_user import RoboUser

@@ -16,10 +16,10 @@ class RoboUser:
         self.password = password
 
     def login(self):
-        loginurl = urljoin(self.url, "login.auth")
+        loginurl = urljoin(self.url, "login/auth")
         self.driver.get(loginurl)
-        self.driver.find_element_by_id("username").send_keys("team27/jan@janvanoorschot.nl")
-        self.driver.find_element_by_id("password").send_keys("h622p")
+        self.driver.find_element_by_id("username").send_keys(self.user)
+        self.driver.find_element_by_id("password").send_keys(self.password)
         self.driver.find_element_by_id("submit").click()
         try:
             myElem = WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.ID, 'profileForm')))
@@ -42,7 +42,7 @@ class RoboUser:
     def runscript(self, script):
         codeMirror = self.driver.find_element_by_class_name('CodeMirror')
         self.driver.execute_script("arguments[0].CodeMirror.setValue(\"" + script + "\");", codeMirror)
-        sleep(0.1)
+        sleep(0.5)
         runButton = self.driver.find_element_by_name('idButtonA')
         self.driver.execute_script("arguments[0].click();", runButton)
         # wait for the script to run
@@ -62,7 +62,7 @@ class RoboUser:
     def run_101(self):
         self.login()
         self.jump("course/robomind/Basis_1/Getting%20started/1")
-        self.runscript("forward(2)")
+        self.runscript("forward(1)")
         self.logout()
 
 

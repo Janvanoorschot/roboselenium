@@ -13,3 +13,5 @@ drivers
 
 .idea
 *.iml
+
+roboload/users_data.py
