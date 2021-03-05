@@ -24,7 +24,6 @@ class RoboUser:
         try:
             myElem = WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.ID, 'profileForm')))
         except TimeoutException:
-            self.driver.quit()
             raise RuntimeError("profile page did not appear after login")
 
     def logout(self):
@@ -32,7 +31,6 @@ class RoboUser:
         try:
             myElem = WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, 'videoMsg')))
         except TimeoutException:
-            self.driver.quit()
             raise RuntimeError("no homepage after logout")
 
     def jump(self, url):
@@ -49,13 +47,11 @@ class RoboUser:
         try:
             WebDriverWait(self.driver, 10).until(element_has_css_class((By.ID, 'myrobomindide'), "RunModeRunning"))
         except TimeoutException:
-            self.driver.quit()
             raise RuntimeError("script did not start")
         # wait for the script to be done
         try:
             WebDriverWait(self.driver, 10).until(element_has_css_class((By.ID, 'myrobomindide'), "RunModeStopped"))
         except TimeoutException:
-            self.driver.quit()
             raise RuntimeError("script did not stop")
 
 
