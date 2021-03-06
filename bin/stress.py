@@ -37,7 +37,7 @@ if __name__ == "__main__":
     try:
         executor = ThreadPoolExecutor(20)
         loop = asyncio.get_event_loop()
-        urls = ["http://localhost:8080"] * 8
+        urls = ["http://localhost:8080"] * 10
         for ix in range(len(urls)):
             url = urls[ix]
             loop.run_in_executor(executor, work, ix, url, 500)
