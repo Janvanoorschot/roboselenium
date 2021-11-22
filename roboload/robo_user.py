@@ -16,8 +16,14 @@ class RoboUser:
         self.password = password
 
     def login(self):
+        if len(self.driver.find_elements_by_id('hiddenLogoutForm')) > 0:
+            self.driver.execute_script("document['hiddenLogoutForm'].submit();")
         loginurl = urljoin(self.url, "login/auth")
         self.driver.get(loginurl)
+        try:
+            myElem = WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.ID, 'username')))
+        except TimeoutException:
+            raise RuntimeError("profile page did not appear after login")
         self.driver.find_element_by_id("username").send_keys(self.user)
         self.driver.find_element_by_id("password").send_keys(self.password)
         self.driver.find_element_by_id("submit").click()
@@ -36,6 +42,10 @@ class RoboUser:
     def jump(self, url):
         challenge_url = urljoin(self.url, url)
         self.driver.get(challenge_url)
+        try:
+            myElem = WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, 'CodeMirror')))
+        except TimeoutException:
+            raise RuntimeError("no challenge page after logout")
 
     def runscript(self, script):
         codeMirror = self.driver.find_element_by_class_name('CodeMirror')
