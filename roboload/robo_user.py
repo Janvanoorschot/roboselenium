@@ -45,12 +45,16 @@ class RoboUser:
         self.driver.execute_script("arguments[0].click();", runButton)
         # wait for the script to run
         try:
-            WebDriverWait(self.driver, 10).until(element_has_css_class((By.ID, 'myrobomindide'), "RunModeRunning"))
+            messagespane = self.driver.find_element_by_class_name('messagespane')
+            WebDriverWait(self.driver, 10).until(EC.invisibility_of_element(messagespane))
+            # WebDriverWait(self.driver, 20).until(element_has_css_class((By.ID, 'myrobomindide'), "RunModeRunning"))
         except TimeoutException:
             raise RuntimeError("script did not start")
         # wait for the script to be done
         try:
-            WebDriverWait(self.driver, 10).until(element_has_css_class((By.ID, 'myrobomindide'), "RunModeStopped"))
+            messagespane = self.driver.find_element_by_class_name('messagespane')
+            WebDriverWait(self.driver, 10).until(EC.visibility_of(messagespane))
+            # WebDriverWait(self.driver, 10).until(element_has_css_class((By.ID, 'myrobomindide'), "RunModeStopped"))
         except TimeoutException:
             raise RuntimeError("script did not stop")
 

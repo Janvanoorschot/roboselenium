@@ -12,7 +12,7 @@ from roboload.users_data import users
 
 def work(ix, url, repeat=1):
         op = webdriver.ChromeOptions()
-        op.add_argument('headless')
+        # op.add_argument('headless')
         driver = webdriver.Chrome(executable_path=os.path.join(rootdir, "drivers/chromedriver"), options=op)
         user = RoboUser(driver, url, users[ix][0], users[ix][1])
         try:
@@ -37,10 +37,10 @@ if __name__ == "__main__":
     try:
         executor = ThreadPoolExecutor(20)
         loop = asyncio.get_event_loop()
-        urls = ["http://localhost:8080"] * 8
+        urls = ["https://www.robomindacademy.com"] * 1
         for ix in range(len(urls)):
             url = urls[ix]
-            loop.run_in_executor(executor, work, ix, url, 500)
+            loop.run_in_executor(executor, work, ix, url, 1)
         loop.run_until_complete(asyncio.gather(*asyncio.all_tasks(loop)))
     except Exception as e:
         print(f"fatal error: {e}")
